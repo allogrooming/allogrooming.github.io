@@ -19,3 +19,6 @@ function dayPicker(){
 ```
 
 인데 작동이 안됨
+
+<br><br>
+다시 보니 html에 js 함수 쓴다고 안써서였음
