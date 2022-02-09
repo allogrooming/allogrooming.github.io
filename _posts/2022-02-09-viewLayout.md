@@ -30,4 +30,9 @@ Initiative
 Calendar  
 목표별 할일 확인 페이지  
 Mypage  
-My report - 데이터 
+My report - 데이터  
+
+<br>
+
+# 추가
+<b>Initiative 페이지 끝내고 다른거 작업하기!!! </b>
