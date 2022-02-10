@@ -6,6 +6,7 @@ title: "ini와 date_list 로직 충돌"
 문제의 두 테이블  
 
 <br>
+
 # 현재 상황
 initiative 테이블에 데이터를 추가하려면  
 😜클라이언트 : ob_code, ini_content, startdate, enddate, period, weekorder, ✌date✌, monthdate  
@@ -14,6 +15,7 @@ initiative 테이블에 데이터를 추가하려면
 service layer에 전달 - mapper에 전달되어 initiative 테이블에 insert됨  
 
 <br>
+
 # 문제점  
 클라이언트에서 받은 date(요일 목록)를 먼저 저장 뒤, initiative insert를 진행하려해도  
 initiative_code가 date_list 테이블에서도 중요한거라 NULL 넣는것도 안됨  
