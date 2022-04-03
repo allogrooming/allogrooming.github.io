@@ -50,6 +50,7 @@ innerText로 고치니
 @RequestMapping(value="/readCalendar", produces="text/html;charset=UTF-8", method = RequestMethod.POST)
 @ResponseBody
 ```
+
 `@PostMapping`이나 `@ReqeustMapping(method = RequestMethod.POST`는 같은 것인데  
 왜 위처럼 작성한 것은 안되는지 정확하게 모르겠다  
 Mapping 관련 어노테이션이 두 개여서 그런가..?  
@@ -116,4 +117,27 @@ Map으로 리턴 타입 바꾸니까 안되서 다시 List<CalendarDTO>로 리�
   처음에 ajax에서 받아오는 컨트롤러가 직접적으로 modelAndVIew 리턴을 하게 해서  
   프로세스가 너어어무 꼬였다ㅋㅋ  
   
+# 5. 타임리프 문제
+  `if(param == null)` 컨트롤러에서 파라미터인 param을 map으로 받는데 저렇게 하니까 로직이 꼬이지ㅋㅋ  
+  `param.isEmpty()`로 바꿔줌  
   
+  <br>
+  
+  그러고 그전에도 잘되던 category 부분도 select가 안되는 상황ㅎㅎ  
+  일단 브랜치 새로 만들고(thymeleafHotIssue)  
+  기존 브랜치 롤백해서 작업 중 병합할 때 뭔가 문제가 있었나보다  
+  
+  <br>
+  
+  내 생각에 지금 문제가 생긴 이유는  
+  리다이렉트 뒤 동일한 페이지를 보여주는데 modelAndView 타입 메소드로 진행해서 그런것 같다  
+  막상 타임리프 출력문에서 카멜케이스를 스네이크로 바꾸면 exception 문제가 생겼다.  
+  컨트롤러에서 오브젝트 만들고 추가하고 보내는 것은 문제가 없는데  
+  렌더링의 문제로 추정중  
+  
+  <br>
+  
+  그래도 배포는 해야되니까 다른 방법으로 진행한다  
+  생각해보니 컨트롤러가 리턴해주는 값은 ajax의 data로 들어가니  
+  ajax에서 success 했을 때 요소에 data 값을 추가해도 된다..  
+  https://velog.io/@leyuri/SpringBoot-ajax-%EC%82%AC%EC%9A%A9%EB%B2%95-%EB%B0%8F-%EC%98%88%EC%A0%9C-thymeleaf
