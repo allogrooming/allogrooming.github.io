@@ -215,3 +215,18 @@ print(total_list)
 똑같은거 5번 이상 반복하면 잘못된 코딩  
 python : 변수에 타입설정X  
 데이터 타입은????  
+
+<br>
+
+# 문제 1
+
+<br>
+
+# 문제 2
+
+<br>
+
+# 문제 3
+
+<br>
+문제(과제) : https://almondine-asterisk-c8e.notion.site/PYTHON-14f1058e6d344b0ebc4e252dbff0715c
