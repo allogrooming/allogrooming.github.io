@@ -110,6 +110,37 @@ function readForm(formId, url){
 
 <br>
 
+### 2-1. 이메일 정규표현식 추가
+```
+var emailCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+else if(emailCheck.test(email) == false) 조건 추가
+```
+
+<br>
+
+### 2-2. 닉네임/아이디 중복 확인
+onchange 사용  
+```
+
+```
+
+<br>
+
+에러 : Unexpected end of input  
+👉 함수 생성 시 `}`가 빠짐  
+
+<br>
+
+참고 : https://rustywhite404.github.io/spring,/springboot,/ajax/2021/03/17/AjaxLogin/  
+
+<br>
+
+#### HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+이 에러로 계속 헤매는 중  
+
+<br>
+
 ### 3. 컨트롤러
 ```
     @Transactional
@@ -219,7 +250,33 @@ public interface JoinMapper {
 
 <br>
 
-### 6. 에러 해결
+### 6. DTO
+```
+package com.project.smallbeginjava11.DTO;
+
+import lombok.*;
+
+import java.util.Date;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class JoinUs {
+    private int memberCode;
+    private String memberId;
+    private String password;
+    private String nickname;
+    private String email;
+    private Date signUpDate;
+    private int activeState;
+}
+```
+
+<br>
+
+### 7. 에러 해결
 컨트롤러에서 문제가 두 개나 생겼다ㅎ  
 일단 `inputJoin`에서 Unhandled exception: java.text.ParseException  
 두 번째는 joinSuccess가 제대로 로드되지 않는것  
@@ -245,3 +302,35 @@ public interface JoinMapper {
 
 <br>
 
+저럴 경우 확인할 건 DTO 쪽인데  
+이미 lombok을 임포트해서 그건 아닐거다  
+
+<br>
+
+MySQL 워크벤치 다시보니까..  
+```
+create table member(
+	member_code int not null auto_increment,
+    memer_id varchar(15) not null,
+    password varchar(20) not null,
+    nickname varchar(15) not null,
+    email varchar(50) not null,
+    sign_up_date timestamp default now(),
+    active_state int not null,
+    primary key (member_code));
+```
+member_id로 해야될거 오타가 나서 저런거였다..  
+
+<br>
+
+Table 칼럼명 수정하니까 나오는 에러  
+```
+### SQL: INSERT INTO member(             member_code,             member_id,             password,             nickname,             email,             sign_up_date,             active_state         )         VALUES(                       (select IFNULL(MAX(a.member_code), 0) + 1 FROM member a),                       ?,                       ?,                       ?,                       ?,                       default,                       1               )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'member_id' cannot be null
+; Column 'member_id' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'member_id' cannot be null] with root cause
+```
+
+⭐ HTML에서 input의 name과 칼럼명이 맞는지 확인한다  
+`<span>ID</span> &nbsp; &nbsp; &nbsp; <input type="text" id="userId" name="userId" class="form" size="25"><br>`  
+userId라고 했으니까 안되지... memberId로 변경하니 저장 잘 된다  
+![image](https://user-images.githubusercontent.com/86642180/181751968-02d92483-78f9-40dd-82ef-5442130941f1.png)
