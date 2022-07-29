@@ -298,3 +298,8 @@ Table 칼럼명 수정하니까 나오는 에러
 ### Cause: java.sql.SQLIntegrityConstraintViolationException: Column 'member_id' cannot be null
 ; Column 'member_id' cannot be null; nested exception is java.sql.SQLIntegrityConstraintViolationException: Column 'member_id' cannot be null] with root cause
 ```
+
+⭐ HTML에서 input의 name과 칼럼명이 맞는지 확인한다  
+`<span>ID</span> &nbsp; &nbsp; &nbsp; <input type="text" id="userId" name="userId" class="form" size="25"><br>`  
+userId라고 했으니까 안되지... memberId로 변경하니 저장 잘 된다  
+![image](https://user-images.githubusercontent.com/86642180/181751968-02d92483-78f9-40dd-82ef-5442130941f1.png)
