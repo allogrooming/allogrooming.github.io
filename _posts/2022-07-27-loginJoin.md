@@ -120,9 +120,24 @@ else if(emailCheck.test(email) == false) 조건 추가
 <br>
 
 ### 2-2. 닉네임/아이디 중복 확인
+onchange 사용  
 ```
 
 ```
+
+<br>
+
+에러 : Unexpected end of input  
+👉 함수 생성 시 `}`가 빠짐  
+
+<br>
+
+참고 : https://rustywhite404.github.io/spring,/springboot,/ajax/2021/03/17/AjaxLogin/  
+
+<br>
+
+#### HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+이 에러로 계속 헤매는 중  
 
 <br>
 
