@@ -70,8 +70,64 @@ active_state도 가입한 사람이니까 일단 활동 중인 1로 값이 입�
 <br>
 
 ### 2. ajax를 통해 json 타입으로 컨트롤러에 정보 전달
+```
+function readForm(formId, url){
+      $.ajax({
+             url : url,
+             type : "post",
+             contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+             dataType : "text",
+             data : $(formId).serialize(),
+             success : function(result){
+                 console.log(result);
+                 console.log(this.data);
+             },
+             error : function(err){
+                 console.log(err+"에러발생");
+                 console.log(this.data);
+             }
+      });
+}
+```
+```
+<script>
+    $(function(){
+        $("#form-submit").click(function(){
+            var id = $("#id").val();
+            var password = $("#password").val();
+            var nickname = $("#nickname").val();
+            var email = $("#email").val();
 
+            if(id == '' || password== '' || nickname == '' || email == ''){
+                alert("Please fill the form completely");
+            }else{
+                readForm("#joinUs", "/readJoinUs");
+            }
+        })
+    })
+</script>
+```
 
 <br>
 
-### 3. 
+### 3. 컨트롤러
+```
+    @Transactional
+    @RequestMapping(value="/readJoinUs")
+    @ResponseBody
+    public ModelAndView readJoinUs(@RequestParam Map<String, String> param){
+
+        System.out.println(param);
+        joinService.inputJoin(param);
+
+        ModelAndView modelAndView = new ModelAndView("joinSuccess");
+        System.out.println("move to joinSuccess");
+        return modelAndView;
+    }
+```
+컨트롤러에서 문제가 두 개나 생겼다ㅎ  
+일단 `inputJoin`에서 Unhandled exception: java.text.ParseException  
+두 번째는 joinSuccess가 제대로 로드되지 않는것  
+
+<br>
+
