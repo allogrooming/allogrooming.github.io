@@ -110,6 +110,22 @@ function readForm(formId, url){
 
 <br>
 
+### 2-1. 이메일 정규표현식 추가
+```
+var emailCheck = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+else if(emailCheck.test(email) == false) 조건 추가
+```
+
+<br>
+
+### 2-2. 닉네임/아이디 중복 확인
+```
+
+```
+
+<br>
+
 ### 3. 컨트롤러
 ```
     @Transactional
