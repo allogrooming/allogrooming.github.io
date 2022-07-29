@@ -125,9 +125,123 @@ function readForm(formId, url){
         return modelAndView;
     }
 ```
+
+<br>
+
+### 4. Service layer
+```
+package com.project.smallbeginjava11.service;
+
+import java.text.ParseException;
+import java.util.Map;
+
+public interface JoinService {
+    void inputJoin(Map<String, String> param) throws ParseException;
+}
+```
+<br>
+
+```
+package com.project.smallbeginjava11.serviceImpl;
+
+import com.project.smallbeginjava11.mapper.JoinMapper;
+import com.project.smallbeginjava11.service.JoinService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.text.ParseException;
+import java.util.Map;
+
+@Service
+@RequiredArgsConstructor
+public class JoinServiceImpl implements JoinService {
+
+    private final JoinMapper joinMapper;
+
+    @Override
+    public void inputJoin(Map<String, String> param) throws ParseException {
+        joinMapper.insertMember(param);
+    }
+}
+```
+
+<br>
+
+### 5. Mapper
+```
+package com.project.smallbeginjava11.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+
+@Mapper
+@Repository
+public interface JoinMapper {
+    void insertMember(Map<String, String> param);
+}
+```
+
+<br>
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.smallbeginjava11.mapper.JoinMapper">
+
+    <insert id="insertMember" parameterType="hashMap">
+        INSERT INTO member(
+            member_code,
+            member_id,
+            password,
+            nickname,
+            email,
+            sign_up_date,
+            active_state
+        )
+        VALUES(
+                      (select IFNULL(MAX(a.member_code), 0) + 1 FROM member a),
+                      #{memberId},
+                      #{password},
+                      #{nickname},
+                      #{email},
+                      default,
+                      1
+              )
+    </insert>
+
+</mapper>
+```
+
+<br>
+
+### 6. 에러 해결
 컨트롤러에서 문제가 두 개나 생겼다ㅎ  
 일단 `inputJoin`에서 Unhandled exception: java.text.ParseException  
 두 번째는 joinSuccess가 제대로 로드되지 않는것  
+
+<br>
+
+컨트롤러 메소드에도 ParseException 추가하니 문제 해결  
+
+<br>
+
+#### 또 다른 문제가 발생함  
+```
+2022-07-29 19:23:14.225 ERROR 10028 --- [nio-9090-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'member_id' in 'field list'
+### The error may exist in file [C:\Users\user\IdeaProjects\smallBeginJava11\out\production\resources\mybatis\mapper\JoinMapper.xml]
+### The error may involve com.project.smallbeginjava11.mapper.JoinMapper.insertMember-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO member(             member_code,             member_id,             password,             nickname,             email,             sign_up_date,             active_state         )         VALUES(                       (select IFNULL(MAX(a.member_code), 0) + 1 FROM member a),                       ?,                       ?,                       ?,                       ?,                       default,                       1               )
+### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'member_id' in 'field list'
+```
+예전에도 많이 봤던 에러다  
+매퍼에 param이 제대로 안넘어가서 생기는 문제  
 
 <br>
 
