@@ -122,8 +122,74 @@ else if(emailCheck.test(email) == false) 조건 추가
 ### 2-2. 닉네임/아이디 중복 확인
 onchange 사용  
 ```
+            <span class="joinInput">ID</span> &nbsp; &nbsp; &nbsp;
+            <input type="text" id="memberId" name="memberId" class="form" size="25" onchange="checkId(this)" />&nbsp;
+            <span id="id_ok" style="display: none">That ID is available.</span>
+            <span id="id_already" style="display: none">That ID is taken. Try another</span>
+```
+form 태그 안에 onchange를 넣어주고 `this` 즉 input을 날려준다  
 
 ```
+    function checkId(memberId){
+        var obj = $(memberId).val();
+        console.log(obj);
+        $.ajax({
+            url : "/checkId",
+            type : "post",
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            dataType : "text",
+            data : {"memberId" : obj},
+            success: function (cnt) {
+                console.log("Success");
+                console.log(cnt);
+                if (cnt == '0') {
+                    $("#id_ok").css("display", "inline-block");
+                    $("#id_already").css("display", "none");
+                } else {
+                    $("#id_already").css("display", "inline-block");
+                    $("#id_ok").css("display", "none");
+                }
+            },
+            error: function (err) {
+                alert("Error");
+                console.log(err);
+            }
+        });
+    }
+```
+`input name`의 val를 obj로 저장한 뒤 json 타입으로 컨트롤러에 보내준다!  
+
+```
+    // Controller
+    @Transactional
+    @RequestMapping(value="/checkId", produces="text/html;charset=UTF-8")
+    @ResponseBody
+    @PostMapping
+    public String checkId(@RequestParam Map<String, String> memberId) throws ParseException{
+        int cnt = joinService.checkId(memberId);
+        String cnt_str = Integer.toString(cnt);
+        return cnt_str;
+    }
+    
+    //Service
+    int checkId(Map<String, String> memberId);
+    
+    @Override
+    public int checkId(Map<String, String> memberId){
+        int cnt = joinMapper.checkId(memberId);
+        return cnt;
+    }
+    
+    //Mapper
+    int checkId(Map<String, String> memberId);
+    
+    <select id="checkId" parameterType="hashMap" resultType="int">
+      select count(member_id) from member where member_id = #{memberId}
+    </select>
+```
+컨트롤러 ~ 서비스 레이어 ~ 매퍼  
+컨트롤러에서 int로 js에게 보내주니까 계속 에러가 났다  
+js가 읽을 수 있는 String으로 보내주니 에러 해결!  
 
 <br>
 
