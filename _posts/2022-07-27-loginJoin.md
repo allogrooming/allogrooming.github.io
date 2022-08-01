@@ -400,3 +400,16 @@ Table 칼럼명 수정하니까 나오는 에러
 `<span>ID</span> &nbsp; &nbsp; &nbsp; <input type="text" id="userId" name="userId" class="form" size="25"><br>`  
 userId라고 했으니까 안되지... memberId로 변경하니 저장 잘 된다  
 ![image](https://user-images.githubusercontent.com/86642180/181751968-02d92483-78f9-40dd-82ef-5442130941f1.png)
+
+<br>
+
+#### 리다이렉트 문제
+`@getMapping`을 써야하는데 `@postMapping`을 써서 안됨  
+
+<br>
+
+getMapping과 postMapping의 차이점  
+
+<br>
+
+### 8. 비밀번호 암호화
