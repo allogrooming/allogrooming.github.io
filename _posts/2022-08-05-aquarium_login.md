@@ -29,3 +29,16 @@ remote_user 객체를 활용
 <br>
 
 <b>(4) AbstractBaseUser 모델 상속한 사용자 정의 User 모델 사용</b>  
+
+<br>
+
+# 3. 회원가입 완료된 브랜치 받아오기
+user확장이 끝났고 admin으로 계정이 생성된것이 확인된 브랜치를 가져온다  
+1. 폴더 생성
+2. 우클릭 - git bash 실행 - code .
+3. `$ git clone -b 클론할 브랜치명 --single-branch url`  
+
+<br>
+
+# 4. 에러 해결 django.core.exceptions.ImproperlyConfigured: The SECRET_KEY setting must not be empty.
+받아온 브랜치 서버 실행하려니까 안된다  
