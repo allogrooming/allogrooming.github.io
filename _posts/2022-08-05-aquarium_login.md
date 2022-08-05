@@ -15,4 +15,17 @@ remote_user 객체를 활용
 
 <br>
 
-# 2. 
+# 2. User 확장
+<b>(1) 프록시 모델 사용</b>  
+
+<br>
+
+<b>(2) User 모델과 일대일관계의 프로필 테이블 추가</b>  
+
+<br>
+
+<b> 📌 (3) AbstractUser 모델 상속한 사용자 정의 User 모델 사용</b>  
+
+<br>
+
+<b>(4) AbstractBaseUser 모델 상속한 사용자 정의 User 모델 사용</b>  
