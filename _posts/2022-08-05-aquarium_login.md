@@ -128,3 +128,110 @@ figma에서 작업한 것을 보면 닉네임도 회원가입 시 받는데 닉�
 현재는 auth_user에서 필드 추가 없이 회원가입을 받는데  
 members 앱에서 User 모델을 확장함(닉네임 필드 추가)  
 그리고 나서 로그인이 되는지 다시 점검해야겠다..  
+
+<br>
+
+📌 members/models.py
+```
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+# auth_user의 나머지 필드를 그대로 사용하고 동작하되 nickname 필드를 추가함
+class User(AbstractUser):
+    nickname = models.CharField(max_length=20, blank=False, null=False)
+```
+
+<br>
+
+📌 settings.py
+```
+AUTH_USER_MODEL = 'members.User' //members 앱 안의 models.py에 User 모델 사용!
+```
+이거 잘 들어갔는지 다시 확인  
+
+<br>
+
+📌 migration 재진행 - 에러  
+현재 장고 버전 4.0.4라서 jwt 지원X 😦  
+`pip install djangorestframework-simplejwt`  
+
+<br>
+
+settings.py  
+```
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework_simplejwt',
+
+    'members',
+    
+]
+
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    ],
+}
+
+#JWT 설정
+REST_USE_JWT = True
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME' : datetime.timedelta(hours=2), # access token의 유효기간
+    'REFRESH_TOKEN_LIFETIME' : datetime.timedelta(days=7), # refresh token의 유효기간
+    'ROTATE_REFRESH_TOKENS' : False, # true일 경우 refresh token이 보내지면 새로운 access, refresh 반환
+    'TOKEN_USER_CLASS' : 'members.User',
+}
+```
+
+models.py  
+```
+from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+# auth_user의 나머지 필드를 그대로 사용하고 동작하되 nickname 필드를 추가함
+class User(AbstractUser):
+    nickname = models.CharField(max_length=20, blank=False, null=False)
+
+```
+
+views.py
+```
+from django.shortcuts import render
+from members.models import User
+from rest_framework import generics
+
+from .serializers import RegisterSerializer
+
+# drf 기본 템플릿으로 회원가입
+class RegisterView(generics.CreateAPIView):
+    queryset=User.objects.all()
+    serializer_class=RegisterSerializer
+
+```
+
+serializer.py
+```
+from members.models import User
+```
+
+<br>
+
+DB에 테이블 전부 드랍하고 migrate 진행  
+![image](https://user-images.githubusercontent.com/86642180/183261212-52758b91-ee85-4c1b-8502-b071211dd150.png)  
+![image](https://user-images.githubusercontent.com/86642180/183261243-60a83dac-8afe-4a84-a1f7-8bbf39dfc908.png)  
+auth_user가 생기지 않고 member_user가 생겼으며 auth_user와 동일한 스키마에서 nickname 필드 추가  
+
+<br>
+
+jwt 
+
