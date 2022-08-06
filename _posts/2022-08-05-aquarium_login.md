@@ -42,3 +42,13 @@ user확장이 끝났고 admin으로 계정이 생성된것이 확인된 브랜�
 
 # 4. 에러 해결 django.core.exceptions.ImproperlyConfigured: The SECRET_KEY setting must not be empty.
 받아온 브랜치 서버 실행하려니까 안된다  
+![image](https://user-images.githubusercontent.com/86642180/183142941-2d1a9305-c897-4676-a29d-b5e99a5d9ae1.png)  
+서버가 안켜진 적은 단 한번도 없어서 새벽에 머리가 지끈거렸다  
+
+<br>
+
+당장 받은 브랜치는 장고 내부의 sqlite를 쓴거라  
+rds 세팅을 넣어주니 일단 서버는 켜졌다  
+
+<br>
+
