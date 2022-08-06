@@ -72,7 +72,7 @@ Json Web Token
 
 <br>
 
-### 패키지 설치
+### (1) 패키지 설치 및 
 📌 command line
 ```
 pip install djangoframework-jwt
@@ -123,4 +123,6 @@ JWT_AUTH = {
 }
 ```
 
-### User 모델 생성
+### (2) User 모델 생성 + 회원가입 창 수정
+figma에서 작업한 것을 보면 닉네임도 회원가입 시 받는데 닉네임 필드를 추가한다  
+
