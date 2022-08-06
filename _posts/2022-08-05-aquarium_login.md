@@ -65,4 +65,30 @@ rds 세팅을 넣어주니 일단 서버는 켜졌다
 
 <br>
 
-# 6. 
+# 6. 로그인 구현 with JWT
+### JWT
+Json Web Token  
+로그인이 성공적으로 되면 사용자에게 주는 토큰도 json형태로 프론트(리액트)에 전달할 예정  
+
+<br>
+
+### 패키지 설치
+📌 command line
+```
+pip install djangoframework-jwt
+pip install django-rest-authtoken
+```
+![image](https://user-images.githubusercontent.com/86642180/183255557-2b13b9a9-ccb2-4bd6-b043-6f9116a8b6b6.png)  
+
+<br>
+
+📌 settings.py
+```
+INSTALLED_APPS = [
+	'rest_framework.authtoken',
+]
+
+AUTH_USER_MODEL = 'members.User' //members 앱 안의 models.py에 User 모델 사용!
+
+
+```
