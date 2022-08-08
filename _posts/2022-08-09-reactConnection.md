@@ -20,6 +20,27 @@ aquarium/yourfish 에서 `yarn start`
 ![image](https://user-images.githubusercontent.com/86642180/183487686-dc58fda6-2b89-4c93-86b4-56fa1ea7edce.png)  
 완료  
 
+# login.js 수정
+```
+ const signIn = () => {
+    const data = {
+      email : id,
+      password : pw,
+    };
+    axios.post('http://127.0.0.1:8000/members/login/', data)
+    .then(response => {
+      const { accessToken } = response.data;
+```
+
+# test 브랜치에 푸쉬
+```
+git init
+cd aquarium (가장 상위 말고 그 다음 상위의 aquarium 폴더에서 git add . 해야함!)
+git add .
+git commit -m "message"
+git push -u origin test
+```
+
 # 로그인 유지 (8/9)
 ![image](https://user-images.githubusercontent.com/86642180/183490375-5722976b-e56b-42ed-8bf2-31bf4adeb970.png)  
 리액트 내의 키 값과 시리얼라이저 키 값 일치 시키고 나니까  
