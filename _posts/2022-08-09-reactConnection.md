@@ -19,3 +19,9 @@ aquarium/aquarium 에서 `python manage.py runserver`
 aquarium/yourfish 에서 `yarn start`  
 ![image](https://user-images.githubusercontent.com/86642180/183487686-dc58fda6-2b89-4c93-86b4-56fa1ea7edce.png)  
 완료  
+
+# 로그인 유지 (8/9)
+![image](https://user-images.githubusercontent.com/86642180/183490375-5722976b-e56b-42ed-8bf2-31bf4adeb970.png)  
+리액트 내의 키 값과 시리얼라이저 키 값 일치 시키고 나니까  
+시리얼라이저에서 토큰을 리턴하는게 리액트에 전달이 안됨  
+jwt 방식으로 수정 필요함
