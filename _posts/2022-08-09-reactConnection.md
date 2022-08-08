@@ -17,3 +17,5 @@ $ git clone -b test --single-branch https://github.com/aquariumProject/aquarium.
 디렉토리를 보면  
 aquarium/aquarium 에서 `python manage.py runserver`  
 aquarium/yourfish 에서 `yarn start`  
+![image](https://user-images.githubusercontent.com/86642180/183487686-dc58fda6-2b89-4c93-86b4-56fa1ea7edce.png)  
+완료  
