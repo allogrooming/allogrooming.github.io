@@ -41,8 +41,14 @@ git commit -m "message"
 git push -u origin test
 ```
 
-# 로그인 유지 (8/9)
+# 로그인 토큰 (8/9)
 ![image](https://user-images.githubusercontent.com/86642180/183490375-5722976b-e56b-42ed-8bf2-31bf4adeb970.png)  
-리액트 내의 키 값과 시리얼라이저 키 값 일치 시키고 나니까  
-시리얼라이저에서 토큰을 리턴하는게 리액트에 전달이 안됨  
-jwt 방식으로 수정 필요함
+email 대신 username일 경우는 성공  
+emailField 등 변경을 한다  
+
+<br>
+
+# 진행상황 및 일정
+리액트 연동 ⭕  
+커뮤니티 게시판 👉 혜원  
+쇼핑 게시판 👉 민영  
