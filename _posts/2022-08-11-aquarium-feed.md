@@ -23,3 +23,11 @@ generic으로 만들어서 보내지는 view 클래스 안에서 어떤 것을 �
 <br>
 
 # 2. CRUD - like, 이미지, 조회스, 스크랩 안되는 feed 글
+📌 feed 글 목록 보기(feed/feed)  
+![image](https://user-images.githubusercontent.com/86642180/184082517-b3ba7d6a-3f87-4884-b04b-c8090b20954a.png)  
+
+<br>
+
+📌 feed 글 내용 보기(feed/feed/글번호)
+![image](https://user-images.githubusercontent.com/86642180/184082709-c7ee1d6f-7f78-4004-9c3f-d1a4f4ae3dc5.png)  
+
