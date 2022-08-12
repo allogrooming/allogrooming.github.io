@@ -25,6 +25,7 @@ div에는 id 값이 들어가지 않아서
 👉 div가 클릭될 경우 div의 부모인 td의 아이디 값을 찾게 한다  
   
 <br>
+  
 ```
     function changeClickedDate(e){
         if (clickedDateElement != e.target){
