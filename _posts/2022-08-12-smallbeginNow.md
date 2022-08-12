@@ -18,6 +18,14 @@ td 안의 <div>를 클릭했을 경우(숫자만 클릭)
 td를 클릭했을 경우(숫자 외의 공간)  
 ![image](https://user-images.githubusercontent.com/86642180/184388352-8644b0f7-c384-4b02-b96f-fd38d62f304b.png)  
 
+<br>
+  
+그래서 td 안의 <div>를 클릭했을 경우 calendar1.js의 getDateFromId가 제대로 작동하지 않음  
+<div>에는 id 값이 들어가지 않아서  
+👉 <div>가 클릭될 경우 <div>의 부모인 td의 아이디 값을 찾게 한다  
+  
+<br>
+
 
 
 ### 2. 삭제 기능
