@@ -3,9 +3,70 @@ layout: post
 title: "캘린더 관련 할 것"
 ---
 
-# 1. todo CRUD
+# ☝ todo CRUD
+### 0. DB 수정
+`Alter table to_do modify plan_date timestamp default now();`  
 
-# 2. Spring security
+<br>
+
+### 1. td 아이디 값으로 그 날짜에 맞는 todo 값 가져오기
+td 안의 <div>를 클릭했을 경우(숫자만 클릭)  
+![image](https://user-images.githubusercontent.com/86642180/184384236-fe0d17a1-1a19-41ca-bb57-f1c0df877be8.png)  
+
+<br>
+
+td를 클릭했을 경우(숫자 외의 공간)  
+![image](https://user-images.githubusercontent.com/86642180/184388352-8644b0f7-c384-4b02-b96f-fd38d62f304b.png)  
+
+<br>
+  
+그래서 td 안의 <div>를 클릭했을 경우 calendar1.js의 getDateFromId가 제대로 작동하지 않음  
+<div>에는 id 값이 들어가지 않아서  
+👉 <div>가 클릭될 경우 <div>의 부모인 td의 아이디 값을 찾게 한다  
+아니면 <div> 안의 텍스트 값을 읽으면 된다  
+  
+<br>
+```
+    function changeClickedDate(e){
+        if (clickedDateElement != e.target){
+            clickedDateElement.classList.remove('active');
+            clickedDateElement = e.target;
+            clickedDate = e.target.id;
+            e.target.classList.add('active');
+            showCurrentDateOnLeft(getDateFromId(clickedDate));
+        }
+    }
+```
+이랬던 코드에서 <div>의 부모인 td를 가져오게 하고  
+그 id 값을 getDateFromId에 사용했다
+
+```
+    function changeClickedDate(e){
+        if (clickedDateElement != e.target){
+            clickedDateElement.classList.remove('active');
+            clickedDateElement = e.target;
+            clickedDate = e.target.id;
+            if(clickedDate == ""){
+                var tempClickedDate = clickedDateElement.parentNode.id;
+                clickedDateElement.parentNode.classList.add('active');
+                showCurrentDateOnLeft(getDateFromId(tempClickedDate));
+            }else{
+                e.target.classList.add('active');
+                showCurrentDateOnLeft(getDateFromId(clickedDate));
+            }
+        }
+    }
+```
+이거 찾는다고 하루가 다 갔다.. 허탈하다ㅎ..  
+결과  
+![image](https://user-images.githubusercontent.com/86642180/184420889-8e519505-2336-4ec2-9e45-949cfa40f6f3.png)  
+
+
+### 2. 삭제 기능
+
+### 3. 수정 기능
+
+# ✌ Spring security
 ```
 package com.project.smallbeginjava11.config;
 
