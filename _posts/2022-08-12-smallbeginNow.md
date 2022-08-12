@@ -3,7 +3,7 @@ layout: post
 title: "캘린더 관련 할 것"
 ---
 
-# 1. todo CRUD
+# ☝ todo CRUD
 ### 0. DB 수정
 `Alter table to_do modify plan_date timestamp default now();`  
 
@@ -66,7 +66,7 @@ td를 클릭했을 경우(숫자 외의 공간)
 
 ### 3. 수정 기능
 
-# 2. Spring security
+# ✌ Spring security
 ```
 package com.project.smallbeginjava11.config;
 
