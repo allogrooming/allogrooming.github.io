@@ -20,10 +20,9 @@ td를 클릭했을 경우(숫자 외의 공간)
 
 <br>
   
-그래서 td 안의 <div>를 클릭했을 경우 calendar1.js의 getDateFromId가 제대로 작동하지 않음  
-<div>에는 id 값이 들어가지 않아서  
-👉 <div>가 클릭될 경우 <div>의 부모인 td의 아이디 값을 찾게 한다  
-아니면 <div> 안의 텍스트 값을 읽으면 된다  
+그래서 td 안의 div를 클릭했을 경우 calendar1.js의 getDateFromId가 제대로 작동하지 않음  
+div에는 id 값이 들어가지 않아서  
+👉 div가 클릭될 경우 div의 부모인 td의 아이디 값을 찾게 한다  
   
 <br>
 ```
@@ -61,10 +60,24 @@ td를 클릭했을 경우(숫자 외의 공간)
 결과  
 ![image](https://user-images.githubusercontent.com/86642180/184420889-8e519505-2336-4ec2-9e45-949cfa40f6f3.png)  
 
+### 2. 추가 기능
+```
+    @Transactional
+    @RequestMapping(value="/readCalendar")
+    @ResponseBody
+    public List<Todo> readCalendar(@RequestParam Map<String, String> param) {
 
-### 2. 삭제 기능
+        String selectedDate = param.get("selectedDate");
+        List<Todo> todo = calendarService.getTodoList(selectedDate);
+        return todo;
+    }
+```
+아주 예전에 작성했던 컨트롤러로 진행을 다시 할 것이다  
+  
+  
+### 3. 삭제 기능
 
-### 3. 수정 기능
+### 4. 수정 기능
 
 # ✌ Spring security
 ```
