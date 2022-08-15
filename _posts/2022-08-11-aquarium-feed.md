@@ -37,7 +37,70 @@ generic으로 만들어서 보내지는 view 클래스 안에서 어떤 것을 �
 
 # 3. 페이지별로 permission 추가
 feed/feed 제외하고는 로그인한 사용자(admin, staff, 일반유저)만 접근 가능하게 바꿔준다!  
+```
+from rest_framework import permissions
+
+
+SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
+
+class AllowAny(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return True
+
+class IsAuthenticated(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated)
+
+class IsAdminUser(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_staff)
+
+class IsAuthenticatedOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return bool(
+            request.method in SAFE_METHODS or
+            request.user and
+            request.user.is_authenticated
+        )
+
+# feed 글 관련 
+# def has_object_permission(self, request, view, obj):
+
+#     # 수정, 삭제
+#     return obj.author == request.user
+
+class IsAuthorOrReadonly(permissions.BasePermission):
+    # 인증된 유저에 대해 목록 조회 / 포스팅 등록 허용
+    def has_permission(self, request, view):
+        return request.user.is_authenticated
+
+    # 작성자에 한해 Record에 대한 수정 / 삭제 허용
+    def has_object_permission(self, request, views, obj):
+        # 조회 요청은 항상 True
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # PUT, DELETE 요청에 한해, 작성자에게만 허용
+        return obj.author == request.user
+```
+
+최상단 aquarium 폴더에 permission.py 설정  
+그 뒤 임포트해서  
+```
+@csrf_exempt
+class FeedCreate(generics.CreateAPIView):
+    queryset = Feed.objects.all()
+    serializer_class = FeedSerializer
+   
+    permission_classes = [
+        IsAuthenticated,
+    ]
+```
 
 <br>
 
 # 4. 로그인 유지
+어차피 잘 되는거라  
+postman으로 로그인한 유저만 글 쓸 수 있는지 테스트함  
+https://velog.io/@cptkuk91/Postman%EC%9D%84-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-Token-Test  
+참고☝  
+![image](https://user-images.githubusercontent.com/86642180/184546109-db81a010-0c2d-4762-8740-05ae09e1df71.png)  
