@@ -206,7 +206,7 @@ function addTodo(result){
 
 ### 4. 수정 기능
 
-# ✌ Spring security
+# ✌ Spring security XX
 ```
 package com.project.smallbeginjava11.config;
 
@@ -241,3 +241,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 }
 ```
+
+<br>
+  
+# 세션 로그인!!
