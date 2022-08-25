@@ -142,13 +142,71 @@ function clickDate(pointDate){
 ![image](https://user-images.githubusercontent.com/86642180/184426128-e5c4c6f7-8b27-40dd-94e1-6489bfd88957.png)  
 
 #### 가져온 데이터 html에 붙이기
+```
+function addTodoTable(){
+    var lengthT = $("#toDoListsTable > tbody tr").length;
+    if(lengthT > 0){
+        console.log("delete rows");
+        var todoT = document.getElementById("toDoListsTable");
+        for(var i=lengthT-1; i>0; i--){
+           var test = todoT.deleteRow(i);
+        }
+    }
+}
+
+function addTodo(result){
+    var resultTodo = JSON.parse(result);
+
+    if(resultTodo.length > 0){
+        var table4Todo = document.getElementById("toDoListsTable");
+
+        var indexRaw = table4Todo.insertRow();
+/*        var cell1 = indexRaw.insertCell(0);
+        var cell2 = indexRaw.insertCell(1);
+        var cell3 = indexRaw.insertCell(2);
+        var cell4 = indexRaw.insertCell(3);
+        var cell5 = indexRaw.insertCell(4);
+
+        cell1.innerText = ' ';
+        cell2.innerText = 'content';
+        cell3.innerText = 'state';
+        cell4.innerText = ' ';
+        cell5.innerText = ' ';*/
+
+        for(var obj of resultTodo){
+            var newRaw = table4Todo.insertRow();
+            var color = newRaw.insertCell(0);
+            var content = newRaw.insertCell(1);
+            var state = newRaw.insertCell(2);
+            var deleteBtn = newRaw.insertCell(3);
+
+            var values = Object.values(obj);
+
+            color.innerText = "●";
+            color.id = values[5];
+
+            deleteBtn.id = values[0];
+            deleteBtn.classList.add("delete");
+
+            content.innerText = values[2];
+            state.innerText = values[4];
+            deleteBtn.innerText = "delete";
+
+            var tester = document.getElementById(values[5]);
+            var colorTodo = "#" + values[5];
+            $(tester).css("color", values[5]);
+        }
+    }
+}
+```
+![image](https://user-images.githubusercontent.com/86642180/186168291-f1300003-655f-4912-8fd5-d13d99acfed0.png)
 
 
 ### 3. 삭제 기능
 
 ### 4. 수정 기능
 
-# ✌ Spring security
+# ✌ Spring security XX
 ```
 package com.project.smallbeginjava11.config;
 
@@ -183,3 +241,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 }
 ```
+
+<br>
+  
+# 세션 로그인!!
