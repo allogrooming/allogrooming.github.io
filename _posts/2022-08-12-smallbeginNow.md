@@ -244,4 +244,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 <br>
   
-# 세션 로그인!!
+# 쿠키 로그인!!
+쿠키 로그인
+1. 클라이언트에서 사용자가 login 폼으로 id/pw를 제출  
+2. ajax를 통해 컨트롤러에서 받는다  
+3. 컨트롤러는 서비스레이어에 전달  
+4. 서비스레이어는 id와 pw가 맞는지 판별  
+5. 맞으면 List<JoinUs>로 memberCode 필수 포함해서 데이터 리턴  
+6. memberCode를 쿠키에 저장!!  
+7. 클라이언트는 필요할때마다 쿠키에서 memberCode를 보며 데이터 보여주기
