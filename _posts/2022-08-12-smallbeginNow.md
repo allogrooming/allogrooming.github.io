@@ -253,3 +253,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 5. 맞으면 List<JoinUs>로 memberCode 필수 포함해서 데이터 리턴  
 6. memberCode를 쿠키에 저장!!  
 7. 클라이언트는 필요할때마다 쿠키에서 memberCode를 보며 데이터 보여주기
+
+<br>
+  
+# 세션로그인으로 진행함
+진행하다가 HttpServletRequest response로 파라미터 받고  
+response.getSession()을 해서 시간을 엄청 날렸다..  
+세션에 member_code만 넣어둠
